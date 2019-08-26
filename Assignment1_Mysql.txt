@@ -1,0 +1,217 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.6.44-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| mydb               |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+6 rows in set (0.03 sec)
+
+mysql> CREATE DATABASES DHOOM_2
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MySQL server version for the right syntax to use near 'DATAB
+ASES DHOOM_2' at line 1
+mysql> CREATE DATABASE DHOOM_2;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| dhoom_2            |
+| mydb               |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE DHOOM_2
+Database changed
+mysql> CREATE TABLE RECORD
+    -> ;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> CREATE TABLE RECORD(PRODUCTID INT,NAME VARCHAR(20));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> SELECT *
+    -> FROM RECORD;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE RECORD(PRODUCTID int,NAME VARCHAR(20));
+ERROR 1050 (42S01): Table 'record' already exists
+mysql> insert into record values(1,'book');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(2,'pen');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into record values(3,'pen');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * from record;
++-----------+------+
+| PRODUCTID | NAME |
++-----------+------+
+|         1 | book |
+|         2 | pen  |
+|         3 | pen  |
++-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> Delete from record
+    -> where productid=3;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * from record;
++-----------+------+
+| PRODUCTID | NAME |
++-----------+------+
+|         1 | book |
+|         2 | pen  |
++-----------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into record values(3,'pen');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * from record;
++-----------+------+
+| PRODUCTID | NAME |
++-----------+------+
+|         1 | book |
+|         2 | pen  |
+|         3 | pen  |
++-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> update record set name='pencil' where productid=3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * from record;
++-----------+--------+
+| PRODUCTID | NAME   |
++-----------+--------+
+|         1 | book   |
+|         2 | pen    |
+|         3 | pencil |
++-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into record values(4,'rubber');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into record values(5,'scale');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(6,'stensils');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * from record;
++-----------+----------+
+| PRODUCTID | NAME     |
++-----------+----------+
+|         1 | book     |
+|         2 | pen      |
+|         3 | pencil   |
+|         4 | rubber   |
+|         5 | scale    |
+|         6 | stensils |
++-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> Delete from record;
+Query OK, 6 rows affected (0.06 sec)
+
+mysql> SELECT * from record;
+Empty set (0.00 sec)
+
+mysql> insert into record values(1,'book');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(2,'pen');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(3,'pen');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into record values(4,'rubber');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(6,'stensils');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * from record;
++-----------+----------+
+| PRODUCTID | NAME     |
++-----------+----------+
+|         1 | book     |
+|         2 | pen      |
+|         3 | pen      |
+|         4 | rubber   |
+|         6 | stensils |
++-----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> truncate table record;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> SELECT * from record;
+Empty set (0.00 sec)
+
+mysql> insert into record values(1,'book');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(2,'pen');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(3,'pen');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into record values(4,'rubber');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into record values(5,'scale');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * from record;
++-----------+--------+
+| PRODUCTID | NAME   |
++-----------+--------+
+|         1 | book   |
+|         2 | pen    |
+|         3 | pen    |
+|         4 | rubber |
+|         5 | scale  |
++-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> Drop table record;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into record values(5,'scale');
+ERROR 1146 (42S02): Table 'dhoom_2.record' doesn't exist
+mysql>
