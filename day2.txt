@@ -1,0 +1,298 @@
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' SHOW TABLES' at line 1
+mysql> DESCRIBE PRODUCUT CATEGORY;
+ERROR 1146 (42S02): Table 'day2.producut' doesn't exist
+mysql> DESCRIBE TEXTDATATYPES SHOW TABLES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SHOW TABLES' at line 1
+mysql>
+mysql>
+mysql>
+mysql> DESCRIBE TEXTDATATYPES;
+ERROR 1146 (42S02): Table 'day2.textdatatypes' doesn't exist
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_day2 |
++----------------+
+| textdatatype   |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> DESCRIBE TEXTDATATYPE;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| A     | char(10)    | YES  |     | NULL    |       |
+| B     | varchar(10) | YES  |     | NULL    |       |
+| C     | text        | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.05 sec)
+
+mysql> INSERT INTO TEXTDATATYPE VALUES('123','123','TEXT DATA -LONGER STRINGS ARE ACCEPTED');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_day2 |
++----------------+
+| textdatatype   |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM TEXTDATATYPE;
++------+------+----------------------------------------+
+| A    | B    | C                                      |
++------+------+----------------------------------------+
+| 123  | 123  | TEXT DATA -LONGER STRINGS ARE ACCEPTED |
++------+------+----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO TEXTDATATYPE VALUES('45','45','TEXT DATA -LONGER STRINGS ARE ACCEPTED');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM TEXTDATATYPE;
++------+------+----------------------------------------+
+| A    | B    | C                                      |
++------+------+----------------------------------------+
+| 123  | 123  | TEXT DATA -LONGER STRINGS ARE ACCEPTED |
+| 45   | 45   | TEXT DATA -LONGER STRINGS ARE ACCEPTED |
++------+------+----------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE NUMBERICALDATATYPES
+    -> (
+    -> A TINYINT,
+    -> B SMALLINT,
+    -> C MEDIUMINT,
+    -> D INT,
+    -> E BIGINT,
+    -> F DECIMAL.
+    -> ,
+    -> G DOUBLE(8,2),
+    -> H FLOAT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.
+,
+G DOUBLE(8,2),
+H FLOAT,
+)' at line 8
+mysql> CREATE TABLE NUMERICALDATATYPE
+    -> (
+    -> A TINYINT,
+    -> B SMALLINT,
+    -> C MEDIUMINT,
+    -> D INT,
+    -> E BIGINT,
+    -> F DECIMAL(8,2),
+    -> G DOUBLE(8,2),
+    -> H FLOAT
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> SELECT * FROM NUMERICALDATATYPE;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO NUMERICALDATATYPES VALUES (110,234,3345,33345,333345,99999.9,999999.9,9999999.99);
+ERROR 1146 (42S02): Table 'day2.numericaldatatypes' doesn't exist
+mysql>
+mysql> INSERT INTO NUMERICALDATATYPES VALUE
+    -> (110,234,3345,33345,3333345,99999.99,99999.99,9999999.99);
+ERROR 1146 (42S02): Table 'day2.numericaldatatypes' doesn't exist
+mysql>
+mysql> INSERT INTO NUMERICALDATATYPES VALUE
+    ->
+    ->
+    -> INSERT INTO NUMERICALDATATYPE VALUE
+    -> (110,234,3345,33345,3333345,99999.99,99999.99,9999999.99);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO NUMERICALDATATYPE VALUE
+(110,234,3345,33345,3333345,99999.99,99999.9' at line 4
+mysql>
+mysql>
+mysql> INSERT INTO NUMERICALDATATYPE VALUE
+    -> (110,234,3345,335,33345,99999.99,99999.99,9999999.99);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM NUMERICALDATATYPE;
++------+------+------+------+-------+----------+----------+--------+
+| A    | B    | C    | D    | E     | F        | G        | H      |
++------+------+------+------+-------+----------+----------+--------+
+|  110 |  234 | 3345 |  335 | 33345 | 99999.99 | 99999.99 | 1e+007 |
++------+------+------+------+-------+----------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> DESCRIBE NUMERICALDATATYPE;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| A     | tinyint(4)   | YES  |     | NULL    |       |
+| B     | smallint(6)  | YES  |     | NULL    |       |
+| C     | mediumint(9) | YES  |     | NULL    |       |
+| D     | int(11)      | YES  |     | NULL    |       |
+| E     | bigint(20)   | YES  |     | NULL    |       |
+| F     | decimal(8,2) | YES  |     | NULL    |       |
+| G     | double(8,2)  | YES  |     | NULL    |       |
+| H     | float        | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE  TABLE DATEDATATYPE;
+ERROR 1113 (42000): A table must have at least 1 column
+mysql> CREATE TABLE DATEDATATYPE
+    -> (
+    -> A DATE
+    -> ,
+    -> B DATETIME
+    -> ,
+    -> C TIMESTAMP,
+    -> D TIME
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> SELECT * FROM DATEDATATYPE;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO DATEDATATYPE VALUES (CURRENT_DATE(),NOW(),NOW(),NOW());
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM DATEDATATYPE;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:02 | 2019-08-26 19:25:02 | 19:25:02 |
++------------+---------------------+---------------------+----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO DATEDATATYPE VALUES (CURRENT_DATE(),NOW(),NOW(),NOW());
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO DATEDATATYPE VALUES (CURRENT_DATE(),NOW(),NOW(),NOW());
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM DATEDATATYPE;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:02 | 2019-08-26 19:25:02 | 19:25:02 |
+| 2019-08-26 | 2019-08-26 19:25:31 | 2019-08-26 19:25:31 | 19:25:31 |
+| 2019-08-26 | 2019-08-26 19:25:33 | 2019-08-26 19:25:33 | 19:25:33 |
++------------+---------------------+---------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO DATEDATATYPE VALUES (2015-12-12,1995-09-16 10:10:16,19950916101016,NOW());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10:10:16,19950916101016,NOW())' at line 1
+mysql> INSERT INTO DATEDATATYPE VALUES ('2015-12-12','1995-09-16 10:10:16','19950916101016',NOW());
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM DATEDATATYPE;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:02 | 2019-08-26 19:25:02 | 19:25:02 |
+| 2019-08-26 | 2019-08-26 19:25:31 | 2019-08-26 19:25:31 | 19:25:31 |
+| 2019-08-26 | 2019-08-26 19:25:33 | 2019-08-26 19:25:33 | 19:25:33 |
+| 2015-12-12 | 1995-09-16 10:10:16 | 1995-09-16 10:10:16 | 19:30:18 |
++------------+---------------------+---------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SPECIALDATATYPE
+    -> (
+    -> ID INT AUTO_INCREMENT PRIMARY KEY,
+    -> MEMBERSHIP ENUM('SILVER','GOLD','PLATINUM'),
+    -> HOBBIES SET('CHESS','CRICKET','CS1.6','CS-GO')
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO SPECIALDATATYPE(MEMBERSHIP,HOBBIES) VALUES('GOLD','CS1.6,CS-GO,CRICKET');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM SPECIALDATATYPE;
++----+------------+---------------------+
+| ID | MEMBERSHIP | HOBBIES             |
++----+------------+---------------------+
+|  1 | GOLD       | CRICKET,CS1.6,CS-GO |
++----+------------+---------------------+
+1 row in set (0.03 sec)
+
+mysql> CREATE TABLE XYZ
+    -> (
+    -> ID INT,
+    -> NAME VARCHAR(20),
+    -> LOCALITY VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO XYZ(1,'RITIK','SION');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'RITIK','SION')' at line 1
+mysql> INSERT INTO XYZ VALUES(1,'RITIK','SION');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO XYZ VALUES(2,'ABHI','GHATKOPAR');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO XYZ VALUES(3,'OMKAR','GOREGAN');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO XYZ VALUES(4,'LEO','KALYAN');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO XYZ VALUES(5,'TARUN','VASAI');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM XYZ;
++------+-------+-----------+
+| ID   | NAME  | LOCALITY  |
++------+-------+-----------+
+|    1 | RITIK | SION      |
+|    2 | ABHI  | GHATKOPAR |
+|    3 | OMKAR | GOREGAN   |
+|    4 | LEO   | KALYAN    |
+|    5 | TARUN | VASAI     |
++------+-------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM XYZ ORDER BY LOCALITY DESC;
++------+-------+-----------+
+| ID   | NAME  | LOCALITY  |
++------+-------+-----------+
+|    5 | TARUN | VASAI     |
+|    1 | RITIK | SION      |
+|    4 | LEO   | KALYAN    |
+|    3 | OMKAR | GOREGAN   |
+|    2 | ABHI  | GHATKOPAR |
++------+-------+-----------+
+5 rows in set (0.03 sec)
+
+mysql> SELECT * FROM XYZ ORDER BY LOCALITY DESC LIMIT 1,2;
++------+-------+----------+
+| ID   | NAME  | LOCALITY |
++------+-------+----------+
+|    1 | RITIK | SION     |
+|    4 | LEO   | KALYAN   |
++------+-------+----------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT NAME,ID,LOCALITY
+    -> FROM XYZ ORDER BY 3;
++-------+------+-----------+
+| NAME  | ID   | LOCALITY  |
++-------+------+-----------+
+| ABHI  |    2 | GHATKOPAR |
+| OMKAR |    3 | GOREGAN   |
+| LEO   |    4 | KALYAN    |
+| RITIK |    1 | SION      |
+| TARUN |    5 | VASAI     |
++-------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT NAME,ID,LOCALITY
+    -> FROM XYZ ORDER BY 1 DESC;
++-------+------+-----------+
+| NAME  | ID   | LOCALITY  |
++-------+------+-----------+
+| TARUN |    5 | VASAI     |
+| RITIK |    1 | SION      |
+| OMKAR |    3 | GOREGAN   |
+| LEO   |    4 | KALYAN    |
+| ABHI  |    2 | GHATKOPAR |
++-------+------+-----------+
+5 rows in set (0.00 sec)
+
