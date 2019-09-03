@@ -1,0 +1,280 @@
+ create table booktran1
+ (
+ trrnid int auto_increment primary key,
+ trndata datetime,
+
+ BookID int references
+ Book(Bookid),
+
+ Memberid int,
+ constraint BookTran_bookID_Fk
+ Foreign Key(bookid)
+ References book(bookid)
+);
+
+
+///new data :#
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventure          |
+| adventureworks     |
+| day2               |
+| dbnp               |
+| emart              |
+| emp                |
+| meenal             |
+| mydb               |
+| mydemodata         |
+| mysql              |
+| practise           |
+| puneet             |
+| test               |
++--------------------+
+14 rows in set (0.08 sec)
+
+mysql> use day2
+Database changed
+mysql> show tables
+    -> ;
++-------------------+
+| Tables_in_day2    |
++-------------------+
+| book              |
+| datedatatype      |
+| member            |
+| numericaldatatype |
+| specialdatatype   |
+| textdatatype      |
+| xyz               |
++-------------------+
+7 rows in set (0.17 sec)
+
+mysql> select * from book;
++--------+------------+
+| bookid | bookname   |
++--------+------------+
+|      1 | daddy      |
+|      2 | matching   |
+|      3 | me         |
+|      4 | ritik fool |
++--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from datedatatype;
++------------+---------------------+---------------------+----------+
+| A          | B                   | C                   | D        |
++------------+---------------------+---------------------+----------+
+| 2019-08-26 | 2019-08-26 19:25:02 | 2019-08-26 19:25:02 | 19:25:02 |
+| 2019-08-26 | 2019-08-26 19:25:31 | 2019-08-26 19:25:31 | 19:25:31 |
+| 2019-08-26 | 2019-08-26 19:25:33 | 2019-08-26 19:25:33 | 19:25:33 |
+| 2015-12-12 | 1995-09-16 10:10:16 | 1995-09-16 10:10:16 | 19:30:18 |
++------------+---------------------+---------------------+----------+
+4 rows in set (0.06 sec)
+
+mysql> select * from xyz;
++------+-------+-----------+
+| ID   | NAME  | LOCALITY  |
++------+-------+-----------+
+|    1 | RITIK | SION      |
+|    2 | ABHI  | GHATKOPAR |
+|    3 | OMKAR | GOREGAN   |
+|    4 | LEO   | KALYAN    |
+|    5 | TARUN | VASAI     |
++------+-------+-----------+
+5 rows in set (0.02 sec)
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 7845173265 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | asds@gmail.com    | 8547963334 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 8547963214 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | asdcs@gmail.com   | 7845123265 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> create table booktran
+    -> (
+    -> trrnid int auto_increment primary key,
+    -> trndata datetime,
+    ->
+    -> BookID int references
+    -> Book(Bookid),
+    ->
+    -> Memberid int,
+    -> constraint BookTran_MemberID_Fk
+    -> Foreign Key(MemberID)
+    -> Reference Member(Memberid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Reference Member(Memberid))' at line 12
+mysql> create table booktran
+    -> (trrnid int auto_increment primary key,
+    -> trndate datetime,;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql>  create table booktran
+    ->  (
+    ->  trrnid int auto_increment primary key,
+    ->  trndata datetime,
+    ->
+    ->  BookID int references
+    ->  Book(Bookid),
+    ->
+    ->  Memberid int,
+    ->  constraint BookTran_MemberID_Fk
+    ->  Foreign Key(MemberID)
+    ->  References Member(Memberid)
+    -> );
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into booktran(datetime,bookid,memberid) values(now(),4,12);
+ERROR 1054 (42S22): Unknown column 'datetime' in 'field list'
+mysql> insert into booktran(trndate,bookid,memberid) values(now(),4,12);0
+ERROR 1054 (42S22): Unknown column 'trndate' in 'field list'
+    -> insert into booktran(trndata,bookid,memberid) values(now(),4,12);0
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0
+insert into booktran(trndata,bookid,memberid) values(now(),4,12)' at line 1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0' at line 1
+mysql> insert into booktran(trndata,bookid,memberid) values(now(),4,12);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select*from booktran;
++--------+---------------------+--------+----------+
+| trrnid | trndata             | BookID | Memberid |
++--------+---------------------+--------+----------+
+|      1 | 2019-08-27 19:45:28 |      4 |       12 |
++--------+---------------------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into booktran(trndata,bookid,memberid) values(now(),6,12);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select*from booktran;
++--------+---------------------+--------+----------+
+| trrnid | trndata             | BookID | Memberid |
++--------+---------------------+--------+----------+
+|      1 | 2019-08-27 19:45:28 |      4 |       12 |
+|      2 | 2019-08-27 19:47:15 |      6 |       12 |
++--------+---------------------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into booktran(trndata,bookid,memberid) values(now(),4,121);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`day2`.`booktran`, CONSTRAINT `BookTran_MemberID_Fk` FOREIGN KEY (`Memberid`) REFERENCES `member` (`MemberID`))
+mysql>
+mysql>  create table booktran
+    ->  (
+    ->  trrnid int auto_increment primary key,
+    ->  trndata datetime,
+    ->
+    ->  BookID int references
+    ->  Book(Bookid),
+    ->
+    ->  Memberid int,
+    ->  constraint BookTran_MemberID_Fk
+    ->  Foreign Key(MemberID)
+    ->  References Member(Memberid)
+    -> );
+ERROR 1050 (42S01): Table 'booktran' already exists
+mysql>  create table booktran
+    ->  (
+    ->  trrnid int auto_increment primary key,
+    ->  trndata datetime,
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql>  create table booktran1
+    ->  (
+    ->  trrnid int auto_increment primary key,
+    ->  trndata datetime,
+    -> bookid int,
+    -> memberid int,
+    -> constraint BookTran_MemberID_Fk
+    ->  Foreign Key(MemberID)
+    ->  References Member(Memberid),
+    ->  constraint BookTran_bookID_Fk
+    ->  Foreign Key(bookid)
+    ->  References book(bookid)
+    -> );
+ERROR 1005 (HY000): Can't create table 'day2.booktran1' (errno: 121)
+mysql> show tables;
++-------------------+
+| Tables_in_day2    |
++-------------------+
+| book              |
+| booktran          |
+| datedatatype      |
+| member            |
+| numericaldatatype |
+| specialdatatype   |
+| textdatatype      |
+| xyz               |
++-------------------+
+8 rows in set (0.00 sec)
+
+mysql>  create table booktran1
+    ->  (
+    ->  trrnid int auto_increment primary key,
+    -> ;;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+ERROR:
+No query specified
+
+mysql> create table hj
+    -> ( trrnid int auto_increment primary key,
+    ->  trndata datetime,
+    ->  memberid int,
+    ->  constraint BookTran_MemberID_Fk
+    ->   Foreign Key(MemberID)
+    ->   References Member(Memberid),
+    -> bookid int,
+    ->  constraint BookTran_bookID_Fk
+    ->  Foreign Key(bookid)
+    ->  References book(bookid)
+    -> );
+ERROR 1005 (HY000): Can't create table 'day2.hj' (errno: 121)
+mysql> describe booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| trrnid   | int(11)  | NO   | PRI | NULL    | auto_increment |
+| trndata  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  |     | NULL    |                |
+| Memberid | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.08 sec)
+
+mysql>  create table booktran
+    ->  (
+    ->  trrnid int auto_increment prima
+    ->  trndata datetime,
+    ->
+    ->  BookID int references
+    ->  Book(Bookid),
+    ->
+    ->  Memberid int,
+    ->  constraint BookTran_MemberID_Fk
+    ->  Foreign Key(MemberID)
+    ->  References Member(Memberid)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'prima
+ trndata datetime,
+
+ BookID int references
+ Book(Bookid),
+
+ Memberid int,
+' at line 3
+mysql> a

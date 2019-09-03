@@ -1,0 +1,113 @@
+Delimiter //
+create function income_level(Psalary decimal(8,2))
+returns varchar(10)
+BEGIN
+Declare income varchar(10);
+if psalary between 10000 and 20000 then
+set income='LOW';
+elseif psalary between 20000 and 40000 then
+set income='AVERAGE';
+ELSE
+SET income='HIGH';
+end if;
+return income;
+end//
+delimiter ;
+
+
+delimiter //
+create function Acircle(radius decimal(8,2))
+returns decimal(8,2)
+BEGIN
+declare radius decimal(4,2)
+if radius=0
+set radius=null;
+else radius>0
+set 3.14*radius*radius;
+end if;
+return radius;
+end //
+delimiter ; 
+
+
+
+delimiter //
+create function Acircle(radius int)
+returns int
+BEGIN
+declare area int;
+if radius=0 then
+set area=null;
+elseif radius>0 then
+set area=3.14*radius*radius;
+end if;
+return area;
+end //
+delimiter ; 
+
+select *,salary+hike as newsalary
+from (select fname,salary,salary*0.2 as hike from employee)s;
+
+delimiter //
+create function fgrade(marks varchar(20))
+returns varchar(30)
+BEGIN
+declare grade varchar(30);
+if marks between 35 and 50 then
+set grade='c';
+elseif
+marks between 50 and 75 then
+set grade='b';
+elseif 
+marks>75 then
+set grade='a';
+else
+set grade='fail';
+end if;
+return grade;
+end //
+delimiter ;
+
+delimiter //
+create function don(x int,y int)
+returns int
+BEGIN
+declare mult int;
+if x>0 and y>0 then
+set mult=x*y;
+else set mult=0;
+end if;
+return mult;
+end//
+delimiter ;
+
+
+delimiter //
+create function don(x int,y int)
+returns int
+BEGIN
+declare mult int;
+if x>0 and y>0 then
+set mult=x*y;
+else set mult=0;
+end if;
+return mult;
+end//
+delimiter ;
+
+
+
+procedure 
+create procedure pdrname
+(pempid int,plname varchar(30))
+update employee set lname=plname
+where empid=pempid;
+
+
+
+
+
+
+
+
+ 

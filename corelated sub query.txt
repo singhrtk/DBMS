@@ -1,0 +1,300 @@
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m1.salary),salary from employee m1 join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m2.lname) having count(distinct m1.salary);
+ERROR 1052 (23000): Column 'salary' in field list is ambiguous
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m1.salary);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.05 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=3);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=4);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=2);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary)salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=2);
++-----------------+--------+
+| NAME            | salary |
++-----------------+--------+
+| RITIK SINGH     |      3 |
+| abhi jadh       |      2 |
+| abhishek jadhav |      2 |
+| leo c           |      2 |
+| tarun c         |      2 |
+| abhishek jadhav |      1 |
++-----------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> Select concat(e1.fname,' ',e2.lname) as NAME,e1.salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2 on e1.salary<=e2.salary
+    -> Group by e1.salary,concat(e1.fname,' ',e1.lname) having count(distinct e2.salary)=2;
++------------+---------+---------------------------+
+| NAME       | salary  | count(distinct e2.salary) |
++------------+---------+---------------------------+
+| abhi jadh  | 7186.00 |                         2 |
+| abhishek c | 7186.00 |                         2 |
+| leo c      | 7186.00 |                         2 |
+| tarun jadh | 7186.00 |                         2 |
++------------+---------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select e2.name ,salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,name having count(distinct e2.salary)=3;
+ERROR 1054 (42S22): Unknown column 'e2.name' in 'field list'
+mysql> select e1.name ,salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,e1.name having count(distinct e2.salary)=3;
+ERROR 1054 (42S22): Unknown column 'e1.name' in 'field list'
+mysql> select e1.fname ,salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> Group by e1.salary,concat(e1.fname,' ',e1.lname) having count(distinct e2.salary)=2;
+ERROR 1052 (23000): Column 'salary' in field list is ambiguous
+mysql> select e1.name ,e2.salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,e1.fname having count(distinct e2.salary)=3;
+ERROR 1054 (42S22): Unknown column 'e1.name' in 'field list'
+mysql> select e1.name ,e1.salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,e1.name having count(distinct e2.salary)=3;
+ERROR 1054 (42S22): Unknown column 'e1.name' in 'field list'
+mysql> select e1.fname ,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> Group by e1.salary,concat(e1.fname,' ',e1.lname) having count(distinct e2.salary)=2;
++----------+---------------------------+
+| fname    | count(distinct e2.salary) |
++----------+---------------------------+
+| abhi     |                         2 |
+| abhishek |                         2 |
+| leo      |                         2 |
+| tarun    |                         2 |
++----------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select salary from employee <(select avg(salary)from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<(select avg(salary)from employee)' at line 1
+mysql> select salary from employee < (select avg(salary)from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '< (select avg(salary)from employee)' at line 1
+mysql> select salary from employee where salary < (select avg(salary)from employee);
++---------+
+| salary  |
++---------+
+| 6502.00 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select name,deptid,salary from employee main
+    -> where salary>(select avg(salary))
+    -> from emp
+    -> where salary>(select avg(salary));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp
+where salary>(select avg(salary))' at line 3
+mysql> select name,deptid,salary from employee main
+    -> where salary>(select avg(salary))
+    -> from emp
+    -> where deptid=main.dept.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp
+where deptid=main.dept.id' at line 3
+mysql> select name,deptid,salary from employee main
+    -> where salary>(select avg(salary)
+    -> from emp
+    -> where deptid=main.dept
+    -> );
+ERROR 1146 (42S02): Table 'day2.emp' doesn't exist
+mysql> select fname,deptid,salary from employee main
+    -> where salary>(select avg(salary)
+    -> from emp
+    -> where deptid=main.dept.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> select fname,deptid,salary from employee main where salary(select avg(salary) from employee where deptid=main.deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select avg(salary) from employee where deptid=main.deptid)' at line 1
+mysql> select fname,deptid,salary from employee main where salary > (select avg(salary) from employee where deptid=main.deptid);
+Empty set (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select fname,deptid,salary from employee main where salary >= (select avg(salary) from employee where deptid=main.deptid);
++----------+--------+---------+
+| fname    | deptid | salary  |
++----------+--------+---------+
+| RITIK    |      1 | 6502.00 |
+| abhishek |      4 | 7856.00 |
+| abhishek |      2 | 7186.00 |
+| abhi     |      3 | 7186.00 |
+| leo      |      3 | 7186.00 |
+| tarun    |      2 | 7186.00 |
++----------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select fname,deptid,salary from employee a where salary >= (select avg(salary) from employee where deptid=a.deptid);
++----------+--------+---------+
+| fname    | deptid | salary  |
++----------+--------+---------+
+| RITIK    |      1 | 6502.00 |
+| abhishek |      4 | 7856.00 |
+| abhishek |      2 | 7186.00 |
+| abhi     |      3 | 7186.00 |
+| leo      |      3 | 7186.00 |
+| tarun    |      2 | 7186.00 |
++----------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select fname,deptid,salary from employee  where salary >= (select avg(salary) from employee where deptid=employee.deptid);
++----------+--------+---------+
+| fname    | deptid | salary  |
++----------+--------+---------+
+| abhishek |      4 | 7856.00 |
+| abhishek |      2 | 7186.00 |
+| abhi     |      3 | 7186.00 |
+| leo      |      3 | 7186.00 |
+| tarun    |      2 | 7186.00 |
++----------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select fname,deptid,salary from employee  where salary >= (select avg(salary) from employee where deptid=deptid);
++----------+--------+---------+
+| fname    | deptid | salary  |
++----------+--------+---------+
+| abhishek |      4 | 7856.00 |
+| abhishek |      2 | 7186.00 |
+| abhi     |      3 | 7186.00 |
+| leo      |      3 | 7186.00 |
+| tarun    |      2 | 7186.00 |
++----------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select fname,deptid,salary from employee a where salary >= (select avg(salary) from employee where deptid=a.deptid);
++----------+--------+---------+
+| fname    | deptid | salary  |
++----------+--------+---------+
+| RITIK    |      1 | 6502.00 |
+| abhishek |      4 | 7856.00 |
+| abhishek |      2 | 7186.00 |
+| abhi     |      3 | 7186.00 |
+| leo      |      3 | 7186.00 |
+| tarun    |      2 | 7186.00 |
++----------+--------+---------+
+6 rows in set (0.00 sec)
+
+mysql>

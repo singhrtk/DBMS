@@ -1,0 +1,300 @@
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 1441554511 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|        4 | tarunsagar | d     | chourasia | 2019-08-26 | nhjsh@gmail.com   | 9768462673 | regular  | B.A         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       11 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 1441554511 | gold     | arts        |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update member set memberid=2 where fname='abhishek';
+ERROR 1062 (23000): Duplicate entry '2' for key 'PRIMARY'
+mysql> update member set memberid=12 where fname='abhishek';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 1441554511 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|        4 | tarunsagar | d     | chourasia | 2019-08-26 | nhjsh@gmail.com   | 9768462673 | regular  | B.A         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       11 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 1441554511 | gold     | arts        |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | nhajhsh@gmail.com | 1441554511 | premium  | b.e         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update member set memberid=13 where mname='k';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update member set memberid=14 where mname='d';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 1441554511 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | nhajhsh@gmail.com | 1441554511 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 1441554511 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | nhjsh@gmail.com   | 9768462673 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> modify column email unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unique' at line 2
+mysql> alter table member
+    -> add constraint mem_email_uq
+    -> unique(email);
+ERROR 1062 (23000): Duplicate entry 'nhjsh@gmail.com' for key 'mem_email_uq'
+mysql> select * from database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 1441554511 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | nhajhsh@gmail.com | 1441554511 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 1441554511 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | nhjsh@gmail.com   | 9768462673 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update column set email = 'sadasd@gmail.com' where fname='abhishek';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column set email = 'sadasd@gmail.com' where fname='abhishek'' at line 1
+mysql> update member set email='asds@gmail.com' where fname='abhishek';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 1441554511 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | asds@gmail.com    | 1441554511 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 1441554511 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | nhjsh@gmail.com   | 9768462673 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> add constraint mem_email_uq
+    -> unique(email);
+ERROR 1062 (23000): Duplicate entry 'nhjsh@gmail.com' for key 'mem_email_uq'
+mysql> update member set email='asdcs@gmail.com' where fname='tarunsagar';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table member
+    -> add constraint email
+    -> unique(email);
+Query OK, 6 rows affected (0.31 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> alter table member
+    -> add constraints phone
+    -> unique(phone);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'phone
+unique(phone)' at line 2
+mysql> alter table member
+    -> add constraint phone
+    -> unique(phone);
+ERROR 1062 (23000): Duplicate entry '1441554511' for key 'phone'
+mysql> update member set phone='7845123265' where fname='tarunsagar';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update member set phone='7845173265' where fname='ritik';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 7845173265 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | asds@gmail.com    | 1441554511 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 7845173265 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | asdcs@gmail.com   | 7845123265 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update member set phone='8547963214' where id='13';
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update member set phone='8547963214' where memberid='13';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from member;
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+| MemberID | fname      | mname | lname     | mem_doj    | email             | phone      | mem_type | designation |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+|        2 | ritik      | r     | singh     | 2019-08-26 | nhajsh@gmail.com  | 7845173265 | premium  | B.e         |
+|        3 | leo        | r     | m         | 2019-08-26 | nhjsh@gmail.com   | 1441554511 | silver   | m.e         |
+|       10 | asd        | r     | ssvd      | 2019-08-26 | anhash@gmail.com  | 1441524511 | silver   | b.a         |
+|       12 | abhishek   | a     | jadhav    | 2019-08-26 | asds@gmail.com    | 1441554511 | premium  | b.e         |
+|       13 | ritik      | k     | singh     | 2019-08-26 | nhajs5h@gmail.com | 8547963214 | gold     | arts        |
+|       14 | tarunsagar | d     | chourasia | 2019-08-26 | asdcs@gmail.com   | 7845123265 | regular  | B.A         |
++----------+------------+-------+-----------+------------+-------------------+------------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> update member set phone='8547963334' where id='12';
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update member set phone='8547963334' where memberid='12';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table member
+    -> add constraint phone
+    -> unique(phone);
+Query OK, 6 rows affected (0.19 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select(phone) from member;
++------------+
+| phone      |
++------------+
+| 1441524511 |
+| 1441554511 |
+| 7845123265 |
+| 7845173265 |
+| 8547963214 |
+| 8547963334 |
++------------+
+6 rows in set (0.02 sec)
+
+mysql> select phone from member;
++------------+
+| phone      |
++------------+
+| 1441524511 |
+| 1441554511 |
+| 7845123265 |
+| 7845173265 |
+| 8547963214 |
+| 8547963334 |
++------------+
+6 rows in set (0.00 sec)
+
+mysql> select phone,memberid from member;
++------------+----------+
+| phone      | memberid |
++------------+----------+
+| 1441524511 |       10 |
+| 1441554511 |        3 |
+| 7845123265 |       14 |
+| 7845173265 |        2 |
+| 8547963214 |       13 |
+| 8547963334 |       12 |
++------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> create table book
+    -> (
+    -> id int auto_increment primary key,
+    -> data datetime,
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> create table book
+    -> (
+    -> bookid int auto
+    -> _increment primary key,
+    -> bookname char(20),
+    -> price decimal(6,2)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto
+_increment primary key,
+bookname char(20),
+price decimal(6,2)
+)' at line 3
+mysql> create table book
+    -> id int auto_increment primary key,
+    -> bookname char(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int auto_increment primary key,
+bookname char(20)
+)' at line 2
+mysql> create table book
+    -> bookid int auto_increment primary key,
+    -> bookname varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'bookid int auto_increment primary key,
+bookname varchar(20))' at line 2
+mysql> create table book
+    -> (
+    -> bookid int auto_increment primary key,
+    -> bookname varchar(20));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into book values('daddy');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into book(bookname) values('daddy');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into book(bookname) values('matching');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into book(bookname) values('me');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> ritik fool
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ritik fool' at line 1
+mysql> insert into book(bookname) values('ritik fool');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from book;
++--------+------------+
+| bookid | bookname   |
++--------+------------+
+|      1 | daddy      |
+|      2 | matching   |
+|      3 | me         |
+|      4 | ritik fool |
++--------+------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> create table booktran(
+    -> trnid int auto_increment primary key,trndate datetime,bookid references book(bookid),memberid int,constraint booktrn_memberid_fk foreign key(memberid) references member(memberid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references book(bookid),memberid int,constraint booktrn_memberid_fk foreign key(' at line 2
+mysql> create table booktran(
+    -> trnid int auto_increment primary key,trndate datetime,bookid references book(bookid),memberid int,constraint booktrn_memberid_fk foreign key(memberid) references member(memberid));

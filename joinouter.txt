@@ -1,0 +1,6 @@
+select concat(fname,' ',lname) as name,salary,mbrnumber as mobile
+from employee left outer join mbr
+on employee.mbrid=mbr.mbrid
+union
+ employee right outer join dept
+on employee.deptid=dept.deptid;

@@ -1,0 +1,552 @@
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |    102 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |    101 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |    103 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |    102 |   101 | 7186.00 |
+|   104 | leo      | c      |    104 |   102 | 7186.00 |
+|   105 | tarun    | c      |    103 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> create table dept (Empid int primary key,Fname char(30),Lname char (30),Deptid int,Mbrid int,salary decimal(6,2)
+    -> select * from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from employee' at line 2
+mysql> create table dept (deptid int auto_increment primary key,dname char(30),designation char(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into dept (dname ,designation) values (it,manager);
+ERROR 1054 (42S22): Unknown column 'it' in 'field list'
+mysql> insert into dept (dname ,designation) values ('it','manager');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into dept (dname ,designation) values ('extc','waiter');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into dept (dname ,designation) values ('comps','coder');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into dept (dname ,designation) values ('etrx','encoder');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from dept;
++--------+-------+-------------+
+| deptid | dname | designation |
++--------+-------+-------------+
+|      1 | it    | manager     |
+|      2 | extc  | waiter      |
+|      3 | comps | coder       |
+|      4 | etrx  | encoder     |
++--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee deptid int foreign key(deptid) references dept(deptid;)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deptid int foreign key(deptid) references dept(deptid' at line 1
+    -> alter table employee deptid int foreign key(deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+alter table employee deptid int foreign key(deptid) references dept(deptid)' at line 1
+mysql> alter table employee foreign key(deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify foreign key(deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int foreign key(deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int foreign key references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int foreign key references dept deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references dept deptid' at line 1
+mysql> alter table employee set=deptid int foreign key references dept deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set=deptid int foreign key references dept deptid' at line 1
+mysql> update table employee modify deptid int foreign key references dept deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employee modify deptid int foreign key references dept deptid' at line 1
+mysql> update table employee modify deptid int foreign key references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table employee modify deptid int foreign key references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int foreign key references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references dept(deptid)' at line 1
+mysql> desc dept;
++-------------+----------+------+-----+---------+----------------+
+| Field       | Type     | Null | Key | Default | Extra          |
++-------------+----------+------+-----+---------+----------------+
+| deptid      | int(11)  | NO   | PRI | NULL    | auto_increment |
+| dname       | char(30) | YES  |     | NULL    |                |
+| designation | char(20) | YES  |     | NULL    |                |
++-------------+----------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee modify Deptid int foreign key references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references dept(deptid)' at line 1
+mysql> alter table employee modify Deptid int references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references dept(deptid)' at line 1
+mysql> alter table employee modify Deptid references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references dept(deptid)' at line 1
+mysql> alter table employee add foreign key(deptid) references dept(deptid);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`day2`.`#sql-6b8_1`, CONSTRAINT `#sql-6b8_1_ibfk_1` FOREIGN KEY (`Deptid`) REFERENCES `dept` (`deptid`))
+mysql>
+mysql> alter table employee modify foreign key(deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify foreign key (deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int, foreign key (deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (deptid) references dept(deptid)' at line 1
+mysql> alter table employee modify deptid int foreign key (deptid) references dept(deptid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key (deptid) references dept(deptid)' at line 1
+mysql> alter table employee
+    -> add constraint fk_deptid foreign key(deptid) references dept(deptid);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`day2`.`#sql-6b8_1`, CONSTRAINT `fk_deptid` FOREIGN KEY (`Deptid`) REFERENCES `dept` (`deptid`))
+mysql> select * from dept;
++--------+-------+-------------+
+| deptid | dname | designation |
++--------+-------+-------------+
+|      1 | it    | manager     |
+|      2 | extc  | waiter      |
+|      3 | comps | coder       |
+|      4 | etrx  | encoder     |
++--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |    102 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |    101 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |    103 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |    102 |   101 | 7186.00 |
+|   104 | leo      | c      |    104 |   102 | 7186.00 |
+|   105 | tarun    | c      |    103 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> delete deptid from employee
+    -> ;
+ERROR 1109 (42S02): Unknown table 'deptid' in MULTI DELETE
+mysql> delete coloumn deptid from employee
+    -> ;
+ERROR 1109 (42S02): Unknown table 'coloumn' in MULTI DELETE
+mysql> alter table employee delete deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete deptid' at line 1
+mysql> alter table employee drop column Deptid;
+Query OK, 6 rows affected (0.17 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+--------+-------+---------+
+| empid | Fname    | Lname  | Mbrid | salary  |
++-------+----------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |   105 | 6502.00 |
+|   101 | abhishek | jadhav |   103 | 7856.00 |
+|   102 | abhishek | jadhav |   104 | 7186.00 |
+|   103 | abhi     | jadh   |   101 | 7186.00 |
+|   104 | leo      | c      |   102 | 7186.00 |
+|   105 | tarun    | c      |   106 | 7186.00 |
++-------+----------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employee add column Deptid after Lname;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after Lname' at line 1
+mysql> alter table employee add column Deptid int after Lname;
+Query OK, 6 rows affected (0.22 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |   NULL |   105 | 6502.00 |
+|   101 | abhishek | jadhav |   NULL |   103 | 7856.00 |
+|   102 | abhishek | jadhav |   NULL |   104 | 7186.00 |
+|   103 | abhi     | jadh   |   NULL |   101 | 7186.00 |
+|   104 | leo      | c      |   NULL |   102 | 7186.00 |
+|   105 | tarun    | c      |   NULL |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee (deptid) values (2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee (deptid) values (1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into employee (deptid) values (3);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee (deptid) values (1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee (deptid) values (4);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |   NULL |   105 | 6502.00 |
+|   101 | abhishek | jadhav |   NULL |   103 | 7856.00 |
+|   102 | abhishek | jadhav |   NULL |   104 | 7186.00 |
+|   103 | abhi     | jadh   |   NULL |   101 | 7186.00 |
+|   104 | leo      | c      |   NULL |   102 | 7186.00 |
+|   105 | tarun    | c      |   NULL |   106 | 7186.00 |
+|   106 | NULL     | NULL   |      2 |  NULL |    NULL |
+|   107 | NULL     | NULL   |      1 |  NULL |    NULL |
+|   108 | NULL     | NULL   |      3 |  NULL |    NULL |
+|   109 | NULL     | NULL   |      1 |  NULL |    NULL |
+|   110 | NULL     | NULL   |      4 |  NULL |    NULL |
++-------+----------+--------+--------+-------+---------+
+11 rows in set (0.00 sec)
+
+mysql> rollbacl;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rollbacl' at line 1
+mysql> alter table employee delete empid=106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete empid=106' at line 1
+mysql> alter table employee delete empid=106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete empid=106' at line 1
+mysql> alter table employee delete  where empid=106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete  where empid=106' at line 1
+mysql> delete employee where empid=106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where empid=106' at line 1
+mysql> delete from employee where empid=106;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> delete from employee where empid=107;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> delete from employee where empid=108;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> delete from employee where empid=109;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> delete from employee where empid=110;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |   NULL |   105 | 6502.00 |
+|   101 | abhishek | jadhav |   NULL |   103 | 7856.00 |
+|   102 | abhishek | jadhav |   NULL |   104 | 7186.00 |
+|   103 | abhi     | jadh   |   NULL |   101 | 7186.00 |
+|   104 | leo      | c      |   NULL |   102 | 7186.00 |
+|   105 | tarun    | c      |   NULL |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set deptid=1 where empid=100;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set deptid=3 where empid=103;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |   NULL |   103 | 7856.00 |
+|   102 | abhishek | jadhav |   NULL |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |   NULL |   102 | 7186.00 |
+|   105 | tarun    | c      |   NULL |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set deptid=2 where empid=102;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set deptid=4 where empid=101;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |   NULL |   102 | 7186.00 |
+|   105 | tarun    | c      |   NULL |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set deptid=3 where empid=104;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set deptid=2 where empid=105;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(fname,'',lname)as mname,fname,lname from employee emp self join employee loy
+    -> on emp.empid=loy.mbrid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'self join employee loy
+on emp.empid=loy.mbrid' at line 1
+mysql> select concat(fname,'',lname)as mname,fname,lname from employee emp innerjoin employee loy
+    -> on emp.empid=loy.mbrid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'innerjoin employee loy
+on emp.empid=loy.mbrid' at line 1
+mysql> select concat(fname,'',lname)as mname,fname,lname from employee emp inner join employee loy
+    -> on emp.empid=loy.mbrid;
+ERROR 1052 (23000): Column 'fname' in field list is ambiguous
+mysql> select * from employee emp inner join employee loy
+    -> on emp.empid=loy.mbrid;
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  | empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |   104 | leo      | c      |      3 |   102 | 7186.00 |
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select concat(fname,'',lname)as mname from employee emp inner join employee loy
+    -> on emp.empid=loy.mbrid;
+ERROR 1052 (23000): Column 'fname' in field list is ambiguous
+mysql> select concat(Fname,'',lname)as Name from employee emp inner join employee loy
+    -> on emp.empid=loy.mbrid;
+ERROR 1052 (23000): Column 'Fname' in field list is ambiguous
+mysql> select fname from employee emp join employee loy on emp.empid= loy.mbrid;
+ERROR 1052 (23000): Column 'fname' in field list is ambiguous
+mysql> select Fname from employee emp join employee loy on emp.empid= loy.mbrid;
+ERROR 1052 (23000): Column 'Fname' in field list is ambiguous
+mysql> select * from employee emp join employee loy on emp.empid= loy.mbrid;
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  | empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |   104 | leo      | c      |      3 |   102 | 7186.00 |
++-------+----------+--------+--------+-------+---------+-------+----------+--------+--------+-------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select emp.Fname from employee emp join employee loy on emp.empid= loy.mbrid;
++----------+
+| Fname    |
++----------+
+| abhishek |
+| abhishek |
+| abhi     |
+| leo      |
+| tarun    |
++----------+
+5 rows in set (0.02 sec)
+
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select(average salary)from employee ));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary)from employee ))' at line 1
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select(average salary)from employee );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary)from employee )' at line 1
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select(avg salary)from employee );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary)from employee )' at line 1
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select avg salary)from employee );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee )' at line 1
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select avg salaryfrom employee );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee )' at line 1
+mysql> select concat(fname,'',lname)as name from employee count where salary >(select avg salary from employee );
+ERROR 1054 (42S22): Unknown column 'avg' in 'field list'
+mysql> select concat(fname,'',lname)as name where salary >(select avg salary ) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where salary >(select avg salary ) from employee' at line 1
+mysql> select concat(fname,'',lname)as name from employee where salary >(select avg(salary) from employee);
++----------------+
+| name           |
++----------------+
+| abhishekjadhav |
+| abhishekjadhav |
+| abhijadh       |
+| leoc           |
+| tarunc         |
++----------------+
+5 rows in set (0.00 sec)
+
+mysql> select concat(fname,'',lname)as name,salary from employee where salary >(select avg(salary) from employee);
++----------------+---------+
+| name           | salary  |
++----------------+---------+
+| abhishekjadhav | 7856.00 |
+| abhishekjadhav | 7186.00 |
+| abhijadh       | 7186.00 |
+| leoc           | 7186.00 |
+| tarunc         | 7186.00 |
++----------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> salect avg(salary) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salect avg(salary) from employee' at line 1
+mysql> salect salary from employee avg(salary) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salect salary from employee avg(salary) from employee' at line 1
+mysql> salect salary from employee where salary=(select avg(salary) from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salect salary from employee where salary=(select avg(salary) from employee)' at line 1
+mysql> salect salary from employee where salary=(select avg(salary) from employee)from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salect salary from employee where salary=(select avg(salary) from employee)from ' at line 1
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+| 7183.666667 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m1.salary),salary from employee m1 join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m2.lname) having count(distinct m1.salary);
+ERROR 1052 (23000): Column 'salary' in field list is ambiguous
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m1.salary);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.05 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=3);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=4);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary),m1.salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=2);
++-----------------+---------------------------+---------+
+| NAME            | count(distinct m2.salary) | salary  |
++-----------------+---------------------------+---------+
+| RITIK SINGH     |                         3 | 6502.00 |
+| abhi jadh       |                         2 | 7186.00 |
+| abhishek jadhav |                         2 | 7186.00 |
+| leo c           |                         2 | 7186.00 |
+| tarun c         |                         2 | 7186.00 |
+| abhishek jadhav |                         1 | 7856.00 |
++-----------------+---------------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(m1.fname, ' ',m1.lname) as NAME,count(distinct m2.salary)salary from employee m1 inner join employee m2 on m1.salary<=m2.salary group by m1.salary,concat(m1.fname,' ',m1.lname)having count(distinct m2.salary=2);
++-----------------+--------+
+| NAME            | salary |
++-----------------+--------+
+| RITIK SINGH     |      3 |
+| abhi jadh       |      2 |
+| abhishek jadhav |      2 |
+| leo c           |      2 |
+| tarun c         |      2 |
+| abhishek jadhav |      1 |
++-----------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> Select concat(e1.fname,' ',e2.lname) as NAME,e1.salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2 on e1.salary<=e2.salary
+    -> Group by e1.salary,concat(e1.fname,' ',e1.lname) having count(distinct e2.salary)=2;
++------------+---------+---------------------------+
+| NAME       | salary  | count(distinct e2.salary) |
++------------+---------+---------------------------+
+| abhi jadh  | 7186.00 |                         2 |
+| abhishek c | 7186.00 |                         2 |
+| leo c      | 7186.00 |                         2 |
+| tarun jadh | 7186.00 |                         2 |
++------------+---------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select e2.name ,salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,name having count(distinct e2.salary)=3;
+ERROR 1054 (42S22): Unknown column 'e2.name' in 'field list'
+mysql> select e1.name ,salary,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> group by e1.salary,e1.name having count(distinct e2.salary)=3;
+
+ERROR 1054 (42S22): Unknown column 'e1.name' in 'field list'
+mysql> select e1.fname ,count(distinct e2.salary)
+    -> from employee e1 inner join employee e2
+    -> on e1.salary<=e2.salary
+    -> Group by e1.salary,concat(e1.fname,' ',e1.lname) having count(distinct e2.salary)=2;
++----------+---------------------------+
+| fname    | count(distinct e2.salary) |
++----------+---------------------------+
+| abhi     |                         2 |
+| abhishek |                         2 |
+| leo      |                         2 |
+| tarun    |                         2 |
++----------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql>
+
+mysql>

@@ -1,0 +1,223 @@
+mysql> create table mbr(mbrid int primary key,mbrnumber int,mbrhome char(32));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into mbr values(101,987324866,'Mumbai' );
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mbr values(102,987324861,'Mumbai' );
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mbr values(103,987324861,'Mumbra' );
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mbr values(103,987334861,'sion' );
+ERROR 1062 (23000): Duplicate entry '103' for key 'PRIMARY'
+mysql> insert into mbr values(104,987334861,'sion' );
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mbr values(105,98732861,'ghatkopar');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into mbr values(106,28732861,'tarunsagar');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from mbr;
++-------+-----------+------------+
+| mbrid | mbrnumber | mbrhome    |
++-------+-----------+------------+
+|   101 | 987324866 | Mumbai     |
+|   102 | 987324861 | Mumbai     |
+|   103 | 987324861 | Mumbra     |
+|   104 | 987334861 | sion       |
+|   105 |  98732861 | ghatkopar  |
+|   106 |  28732861 | tarunsagar |
++-------+-----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employee add constraint fk_mbrid foreign key(mbrid) references mbr(mbrid);
+Query OK, 6 rows affected (0.19 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| empid  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Fname  | char(30)     | YES  |     | NULL    |                |
+| Lname  | char(30)     | YES  |     | NULL    |                |
+| Deptid | int(11)      | YES  | MUL | NULL    |                |
+| Mbrid  | int(11)      | YES  | MUL | NULL    |                |
+| salary | decimal(6,2) | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------+----------+--------+--------+-------+---------+
+| empid | Fname    | Lname  | Deptid | Mbrid | salary  |
++-------+----------+--------+--------+-------+---------+
+|   100 | RITIK    | SINGH  |      1 |   105 | 6502.00 |
+|   101 | abhishek | jadhav |      4 |   103 | 7856.00 |
+|   102 | abhishek | jadhav |      2 |   104 | 7186.00 |
+|   103 | abhi     | jadh   |      3 |   101 | 7186.00 |
+|   104 | leo      | c      |      3 |   102 | 7186.00 |
+|   105 | tarun    | c      |      2 |   106 | 7186.00 |
++-------+----------+--------+--------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from mbr;
++-------+-----------+------------+
+| mbrid | mbrnumber | mbrhome    |
++-------+-----------+------------+
+|   101 | 987324866 | Mumbai     |
+|   102 | 987324861 | Mumbai     |
+|   103 | 987324861 | Mumbra     |
+|   104 | 987334861 | sion       |
+|   105 |  98732861 | ghatkopar  |
+|   106 |  28732861 | tarunsagar |
++-------+-----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+-------+-------------+
+| deptid | dname | designation |
++--------+-------+-------------+
+|      1 | it    | manager     |
+|      2 | extc  | waiter      |
+|      3 | comps | coder       |
+|      4 | etrx  | encoder     |
++--------+-------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select concat(fname,'',lname),mbrhome,designation
+    -> from employee innerjoin mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> innerjoin dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mbr
+on employee.mbrid=mbr.mbrid
+innerjoin dept
+on employee.deptid=dept.deptid' at line 2
+mysql> select concat(fname,'',lname),mbrhome,designation
+    -> from employee inner join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> inner join dept
+    -> on employee.deptid=dept.deptid;
++------------------------+------------+-------------+
+| concat(fname,'',lname) | mbrhome    | designation |
++------------------------+------------+-------------+
+| RITIKSINGH             | ghatkopar  | manager     |
+| abhishekjadhav         | Mumbra     | encoder     |
+| abhishekjadhav         | sion       | waiter      |
+| abhijadh               | Mumbai     | coder       |
+| leoc                   | Mumbai     | coder       |
+| tarunc                 | tarunsagar | waiter      |
++------------------------+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname
+    -> from employee outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname
+from employee outer join mbr
+on employee.mbrid=mbr.mbrid
+outer j' at line 1
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname
+    -> from employee full outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> full outer join dept
+    -> employee.deptid = dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname
+from employee full outer join mbr
+on employee.mbrid=mbr.mbrid
+fu' at line 1
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> right outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname
+from employee left outer join mbr
+on employee.mbrid=mbr.mbrid
+un' at line 1
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname from employee
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname from employee' at line 1
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> employee right outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname
+from employee left outer join mbr
+on employee.mbrid=mbr.mbrid
+un' at line 1
+mysql> select concat(fname,' ',lname) as name,salary,mbr number as mobile,dname
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> from employee right outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as mobile,dname
+from employee left outer join mbr
+on employee.mbrid=mbr.mbrid
+un' at line 1
+
+mysql> select concat(fname,' ',lname) as name,salary,mbrnumber as mobile,dname
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> select concat(fname,' ',lname) as name,salary,mbrnumber as mobile,dname
+    -> from employee right outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1054 (42S22): Unknown column 'dname' in 'field list'
+mysql> select concat(fname,' ',lname) as name,salary,mbrnumber as mobile,dname
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> from employee right outer join dept
+    -> on employee.deptid=dept.deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee right outer join dept
+on employee.deptid=dept.deptid' at line 5
+
+
+mysql> select concat(fname,' ',lname) as name,salary,mbrnumber as mobile
+    -> from employee left outer join mbr
+    -> on employee.mbrid=mbr.mbrid
+    -> union
+    -> select concat(fname,' ',lname) as name,salary,dname
+    -> from employee right outer join dept
+    -> on employee.deptid=dept.deptid;
++-----------------+---------+--------------------------------+
+| name            | salary  | mobile                         |
++-----------------+---------+--------------------------------+
+| RITIK SINGH     | 6502.00 | 98732861                       |
+| abhishek jadhav | 7856.00 | 987324861                      |
+| abhishek jadhav | 7186.00 | 987334861                      |
+| abhi jadh       | 7186.00 | 987324866                      |
+| leo c           | 7186.00 | 987324861                      |
+| tarun c         | 7186.00 | 28732861                       |
+| RITIK SINGH     | 6502.00 | it                             |
+| abhishek jadhav | 7186.00 | extc                           |
+| tarun c         | 7186.00 | extc                           |
+| abhi jadh       | 7186.00 | comps                          |
+| leo c           | 7186.00 | comps                          |
+| abhishek jadhav | 7856.00 | etrx                           |
++-----------------+---------+--------------------------------+
+12 rows in set (0.00 sec)

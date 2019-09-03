@@ -1,0 +1,175 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use adventureworks;
+Database changed
+mysql> create table Dept
+    -> (
+    -> Deptid int,
+    -> Deptname varchar(100)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> create table Emp
+    -> (
+    -> Eid int,
+    -> Ename varchar(100),
+    -> Salary int,
+    -> Deptid int
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into Dept VALUES
+    -> (1001,'Sales'),
+    -> (1002,'Marketing'),
+    -> (1003,'Advertising'),
+    -> (1004,'HR'),
+    -> (1005,'Admin');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into Emp VALUES
+    -> (1,'Jack',15000,1002),
+    -> (2,'Jo',8000,1001),
+    -> (3,'Hill',25000,1003),
+    -> (4,'Sue',51000,1005),
+    -> (5,'David',51000,1004);
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select d.Deptid,e.Deptname
+    -> \c
+mysql> select d.Deptname
+    -> FROM Dept d, Emp e
+    -> \c
+mysql> select d.Deptname, e.avg(Salary) as avgsal
+    -> FROM Dept d, Emp e
+    -> WHERE avgsal >1000;
+ERROR 1630 (42000): FUNCTION e.avg does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select avg(Salary),Deptname
+    -> FROM Dept INNER JOIN Emp
+    -> ON Dept.Deptid=Emp.Deptid
+    -> WHERE Salary > avg(Salary);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select avg(Salary) as avgsal,Deptname
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptide
+    -> WHERE avgsal>1000;
+ERROR 1054 (42S22): Unknown column 'avgsal' in 'where clause'
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SELECT Ename
+    -> FROM Emp
+    -> WHERE Salary > (SELECT AVG(Salary) from Emp);
++-------+
+| Ename |
++-------+
+| Sue   |
+| David |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT Eid,Ename
+    -> FROM Emp
+    -> WHERE Salary > ( SELECT AVG(Salary) from Emp);
++------+-------+
+| Eid  | Ename |
++------+-------+
+|    4 | Sue   |
+|    5 | David |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Emp;
++------+-------+--------+--------+
+| Eid  | Ename | Salary | Deptid |
++------+-------+--------+--------+
+|    1 | Jack  |  15000 |   1002 |
+|    2 | Jo    |   8000 |   1001 |
+|    3 | Hill  |  25000 |   1003 |
+|    4 | Sue   |  51000 |   1005 |
+|    5 | David |  51000 |   1004 |
++------+-------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Eid,Ename,SALARY*1.2 AS Totalsal
+    -> FROM Emp
+    -> WHERE Salary > 5000;
++------+-------+----------+
+| Eid  | Ename | Totalsal |
++------+-------+----------+
+|    1 | Jack  |  18000.0 |
+|    2 | Jo    |   9600.0 |
+|    3 | Hill  |  30000.0 |
+|    4 | Sue   |  61200.0 |
+|    5 | David |  61200.0 |
++------+-------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Ename
+    -> FROM EMP
+    -> WHERE Ename LIKE (%jo%);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%jo%)' at line 3
+mysql> SELECT Ename
+    -> FROM EMP
+    -> WHERE Ename LIKE '%jo%';
++-------+
+| Ename |
++-------+
+| Jo    |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT d.Deptname,MAX(Salary)
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptid
+    -> GROUP BY Deptid;
+ERROR 1052 (23000): Column 'Deptid' in group statement is ambiguous
+mysql> SELECT d.Deptname,MAX(Salary)
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptid
+    -> GROUP BY e.Deptid;
++-------------+-------------+
+| Deptname    | MAX(Salary) |
++-------------+-------------+
+| Sales       |        8000 |
+| Marketing   |       15000 |
+| Advertising |       25000 |
+| HR          |       51000 |
+| Admin       |       51000 |
++-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> SELECT d.Deptname
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptid
+    -> HAVING AVG(Salary)>1000
+    -> GROUP BY e.Deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY e.Deptid' at line 5
+mysql> SELECT d.Deptname
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptid
+    -> HAVING AVG(Salary)>1000
+    -> GROUP BY d.Deptid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY d.Deptid' at line 5
+mysql> SELECT DISTINCT d.Deptname
+    -> FROM Dept d INNER JOIN Emp e
+    -> ON d.Deptid=e.Deptid
+    -> HAVING AVG(Salary)>1000
+    -> ;
++-----------+
+| Deptname  |
++-----------+
+| Marketing |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>
